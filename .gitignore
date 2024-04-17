@@ -3,7 +3,7 @@ node_modules
 img/test
 img/source
 img/resized
-/dist
+dist/
 
 # local env files
 .env.local
