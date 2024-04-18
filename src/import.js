@@ -1,6 +1,6 @@
 export const getData = async function (store) {
 
-	const dataRequest = await fetch("../data/candidates.json")
+	const dataRequest = await fetch("../../data/candidates.json")
 	const data = await dataRequest.json()
 	store.commit('initializeCandidatesData',data)
 

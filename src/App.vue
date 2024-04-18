@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <headerComponent></headerComponent>
+    <headerComponent v-if="embed!='embed'"></headerComponent>
 
     <div id="main_content" v-if="selectedCandidateData">
 
@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <div id="chapo">
+      <div id="chapo" v-if="embed!='embed'">
         <span v-if="lang=='en'">We wanted to know how image generators interpreted the names of German candidates to the European Parliament. We prompted several services with the names. Here’s what we found.</span>
         <span v-if="lang=='de'">Wir wollten wissen, wie Bildgeneratoren die Namen deutscher Kandidaten für das Europaparlament interpretieren. Wir haben mehrere Dienste mit den Namen angefragt. Hier ist, was wir gefunden haben.</span>
       </div>
@@ -63,8 +63,8 @@
       </div>
 
       
-        <a v-if="lang=='en'" href="https://algorithmwatch.org/en/donate/" class="donation_cta_container">
-          <span v-if="lang=='en'">Support AlgorithmWatch with a donation</span> 
+        <a v-if="lang=='en'&&embed!='embed'" href="https://algorithmwatch.org/en/donate/" class="donation_cta_container">
+          <span v-if="lang=='en'&&embed!='embed'">Support AlgorithmWatch with a donation</span> 
         </a>
 
         <a v-if="lang=='de'" href="https://algorithmwatch.org/de/spenden/" class="donation_cta_container">
@@ -72,7 +72,7 @@
         </a>
       
 
-      <div id="share_container">
+      <div id="share_container" v-if="embed!='embed'">
           <span v-if="lang=='en'">Share on </span>
           <span v-if="lang=='de'">Teilen auf </span>
           
@@ -121,9 +121,9 @@
 
             <div class="model_name" v-if="i%2==0"><b>{{models_full[parseInt(i/2)]}}</b></div>
 
-            <img v-if="i%2==0" :src="u" :alt='selectedCandidateData["first name"]+" "+selectedCandidateData["last name"]+" "+prompts[p]["en"]' />
+            <img v-if="i%2==0" :src="u" @error='imageUrlAlt' :alt='selectedCandidateData["first name"]+" "+selectedCandidateData["last name"]+" "+prompts[p]["en"]' />
 
-            <img v-if="i%2==1" :src="u" :alt='selectedCandidateData["first name"]+" "+selectedCandidateData["last name"]+" "+prompts[p]["de"]' />
+            <img v-if="i%2==1" :src="u" @error='imageUrlAlt' :alt='selectedCandidateData["first name"]+" "+selectedCandidateData["last name"]+" "+prompts[p]["de"]' />
 
             <div class="image_hover">
               <span v-if="i%2==0">{{selectedCandidateData["first name"]}} {{selectedCandidateData["last name"]}} {{prompts[p]["en"]}}</span>
@@ -147,6 +147,23 @@ import store from '@/store'
 
 export default {
   name: 'App',
+  metaInfo:{
+    meta:[
+      { property: 'msapplication-TileImage', content: 'https://static.algorithmwatch.org/gfx/favicon-270x270.png' }
+    ],
+    link: [
+      { rel: 'stylesheet', href: 'https://algorithmwatch.org/en/wp-content/themes/aw2020/aw.min.css?72' },
+      { rel: 'icon', type: 'image/svg+xml', href: 'https://static.algorithmwatch.org/gfx/aw-logo-icon.svg' },
+      { rel: "shortcut icon" , href:"https://static.algorithmwatch.org/gfx/favicon-32x32.png", type:"image/x-icon" },
+      { rel: "apple-touch-icon", href:"https://static.algorithmwatch.org/gfx/favicon_57px.png" },
+      { rel: "apple-touch-icon", sizes:"114x114", href:"https://static.algorithmwatch.org/gfx/favicon_114px.png" },
+      { rel: "apple-touch-icon", sizes:"72x72", href:"https://static.algorithmwatch.org/gfx/favicon_72px.png" },
+      { rel: "apple-touch-icon", sizes:"144x144", href:"https://static.algorithmwatch.org/gfx/favicon_144px.png" },
+      { rel: "icon" , href:"https://static.algorithmwatch.org/gfx/favicon-32x32.png", sizes:"32x32" },
+      { rel: "icon" , href:"https://static.algorithmwatch.org/gfx/favicon-192x192.png", sizes:"192x192" },
+      { rel: "apple-touch-icon" , href:"https://static.algorithmwatch.org/gfx/favicon-180x180.png" }
+    ]
+  },
   data(){
     return{
       candidates:[],
@@ -203,6 +220,9 @@ export default {
     },
     mpid(){
       return this.$route.params.mpid
+    },
+    embed(){
+      return this.$route.params.embed
     },
     selectedCandidateData(){
       return this.candidates.find(obj => obj.URL_ID === this.selectedCandidate)
@@ -270,6 +290,7 @@ export default {
       this.filtredCandidates = this.candidates.filter(option => {
         return option.URL_ID.toLowerCase().includes(this.searchString.toLowerCase());
       });
+
       this.showDropdown = true;
     },
     selectOption(option) {
@@ -281,13 +302,33 @@ export default {
       this.searchString=""
       this.showDropdown=true
       this.filtredCandidates = this.candidates
+    },
+    updateDocTitle(){
+      if(this.lang == "en"){
+        document.title = "Automatically-generated politicians | AlgorithmWatch"
+      }else{
+        document.title = "Automatisch generierte Politiker*innen | AlgorithmWatch"
+      }
+    },
+    imageUrlAlt(event){
+      if(this.lang=='en'){
+        event.target.src = "/img/placeholder-en.png"
+      }else{
+        event.target.src = "/img/placeholder-de.png"
+      }
     }
 
   },
   watch:{
     dataImport:function(){
       var self = this
-      this.candidates = store.state.candidatesData
+      var byName = store.state.candidatesData.slice(0);
+      byName.sort(function(a,b) {
+          var x = a["last name"].toLowerCase();
+          var y = b["last name"].toLowerCase();
+          return x < y ? -1 : x > y ? 1 : 0;
+      });
+      this.candidates = byName
       this.candidates.forEach(function(c){
         self.candidates_url.push((c["URL_ID"]))
       })
@@ -300,6 +341,7 @@ export default {
 
     lang:function(){
       this.checkCandidateUrl()
+      this.updateDocTitle()
     },
 
     mpid:function(){
@@ -320,6 +362,8 @@ export default {
     if(this.lang != "de" && this.lang != "en"){
       params["lang"] = "en"
     }
+
+    this.updateDocTitle()
 
     this.$router.push({ name: this.$route.name, params: params })
 
@@ -404,9 +448,11 @@ export default {
         font-size: 20px;
         max-width: 750px;
         margin:25px auto 25px;
+        cursor: pointer;
         .dropdown {
           position: relative;
           display: inline-block;
+
           &:after{
             content: '';
             position: absolute;
