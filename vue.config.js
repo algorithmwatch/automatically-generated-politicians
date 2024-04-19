@@ -9,7 +9,9 @@ module.exports = {
   },
   filenameHashing: false,
   productionSourceMap: false,
-  //publicPath: '/myFolder/',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/automatically-generated-politicians/'
+    : '/',
   chainWebpack:
     config => {
       config.optimization.delete('splitChunks')
