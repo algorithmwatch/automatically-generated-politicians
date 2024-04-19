@@ -9,7 +9,7 @@ Vue.use(VueMeta)
 
 
 const router = new VueRouter({
-	mode:'history',
+	mode:'hash',
 	base: process.env.NODE_ENV === 'production'
     ? '/automatically-generated-politicians/'
     : '/',
