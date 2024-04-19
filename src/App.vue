@@ -166,6 +166,9 @@ export default {
   },
   data(){
     return{
+      baseurl: process.env.NODE_ENV === 'production'
+      ? '/automatically-generated-politicians/'
+      : '/',
       candidates:[],
       candidates_url:[],
       filtredCandidates:[],
@@ -265,8 +268,8 @@ export default {
       
       Object.keys(this.prompts).forEach(function(p){
         self.models.forEach(function(m){
-          var url_en = '/img/'+self.selectedCandidateData['ID']+'-'+self.selectedCandidateData['last name']+'-'+m+'-en-'+p+'.jpeg'
-          var url_de = '/img/'+self.selectedCandidateData['ID']+'-'+self.selectedCandidateData['last name']+'-'+m+'-de-'+p+'.jpeg'
+          var url_en = self.baseurl + 'img/'+self.selectedCandidateData['ID']+'-'+self.selectedCandidateData['last name']+'-'+m+'-en-'+p+'.jpeg'
+          var url_de = self.baseurl + 'img/'+self.selectedCandidateData['ID']+'-'+self.selectedCandidateData['last name']+'-'+m+'-de-'+p+'.jpeg'
           self.imgUrls[p].push(url_en)
           self.imgUrls[p].push(url_de)
         })
@@ -312,9 +315,9 @@ export default {
     },
     imageUrlAlt(event){
       if(this.lang=='en'){
-        event.target.src = "/img/placeholder-en.png"
+        event.target.src = self.baseurl + "img/placeholder-en.png"
       }else{
-        event.target.src = "/img/placeholder-de.png"
+        event.target.src = self.baseurl + "img/placeholder-de.png"
       }
     }
 
