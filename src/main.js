@@ -10,6 +10,9 @@ Vue.use(VueMeta)
 
 const router = new VueRouter({
 	mode:'history',
+	base: process.env.NODE_ENV === 'production'
+    ? '/automatically-generated-politicians/'
+    : '/',
 	routes:[
 		{path:"/", redirect: { path: "/en/Terry_Reintke/static" }, meta: { title: 'Automatically-generated politicians | AlgorithmWatch' }},
 		{path:"/:lang", redirect: { path: "/:lang/Terry_Reintke/static" }, meta: { title: 'Automatically-generated politicians | AlgorithmWatch' }},
