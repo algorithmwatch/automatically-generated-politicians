@@ -324,8 +324,8 @@ export default {
       var self = this
       var byName = store.state.candidatesData.slice(0);
       byName.sort(function(a,b) {
-          var x = a["last name"].toLowerCase();
-          var y = b["last name"].toLowerCase();
+          var x = a["last name"].toLowerCase().replace("ö","o").replace("ü","u");
+          var y = b["last name"].toLowerCase().replace("ö","o").replace("ü","u");
           return x < y ? -1 : x > y ? 1 : 0;
       });
       this.candidates = byName
