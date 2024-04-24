@@ -296,9 +296,9 @@ export default {
     },
     imageUrlAlt(event){
       if(this.lang=='en'){
-        event.target.src = self.baseurl + "img/placeholder-en.png"
+        event.target.src = this.baseurl + "img/placeholder-en.png"
       }else{
-        event.target.src = self.baseurl + "img/placeholder-de.png"
+        event.target.src = this.baseurl + "img/placeholder-de.png"
       }
     }
 
