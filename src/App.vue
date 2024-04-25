@@ -65,22 +65,6 @@
         <a v-if="lang=='de'" href="https://algorithmwatch.org/de/spenden/" class="donation_cta_container">
           <span>Unterstützen Sie AlgorithmWatch mit einer Spende</span> 
         </a>
-      
-
-      <div id="share_container" v-if="embed!='embed'">
-          <span v-if="lang=='en'">Share on </span>
-          <span v-if="lang=='de'">Teilen auf </span>
-          
-          <a :href="shareUrl['mastodon']">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M433 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.6-28.4-290.5 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54a102.5 102.5 0 0 1 -.9-13.9c85.6 20.9 158.7 9.1 178.8 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.3V197c0-58.5-64-56.6-64-6.9v114.2H90.2c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175z"/></svg>
-          </a>
-          <a :href="shareUrl['whatsapp']">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-          </a>
-          <a :href="shareUrl['mail']">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
-          </a>
-      </div>
 
       <div v-for="p,i in prompts_list" :key="i" class="prompt_content">
 
@@ -215,12 +199,6 @@ export default {
     },
     selectedCandidateData(){
       return this.candidates.find(obj => obj.URL_ID === this.selectedCandidate)
-    },
-    shareUrl(){
-      var mastodon = "https://mastodonshare.com/?url="+encodeURI(window.location)
-      var whatsapp = "https://wa.me/?text="+encodeURI(window.location)
-      var mail = "mailto:?&subject=Automatically-generated politicians&body="+window.location+""
-      return {"mastodon":mastodon,"whatsapp":whatsapp,"mail":mail}
     }
   },
 
@@ -523,56 +501,6 @@ export default {
         cursor: pointer;
         &:hover{
           opacity: 0.8;
-        }
-      }
-      #share_container{
-        width: 80%;
-        max-width: 750px;
-        margin:10px auto 25px;
-        position: relative;
-        a{
-          cursor:pointer;
-          color:black;
-          text-decoration: none;
-          svg{
-            max-width: 20px;
-            height: auto;
-            margin-left:8px;
-            margin-right:8px;
-            transform:translate(0,3px);
-            fill:#d81d23;
-            &:hover{
-              opacity: 0.8;
-            }
-          }
-        }
-        #IGmodal{
-          width: 300px;
-          height: 400px;
-          background: white;
-          position: absolute;
-          z-index: 999;
-          top:50%;
-          left:50%;
-          transform:translate(-50%,-50%);
-          border-radius: 50px;
-          border:2px solid grey;
-          text-align: center;
-          .IG_text{
-            display: inline-block;
-            width: 250px;
-            position: relative;
-            margin-top:100px;
-            margin-bottom: 20px;
-          }
-          .IG_close{
-            position: relative;
-            border:1px solid black;
-            border-radius: 5px;
-            display:inline-block;
-            padding: 5px 10px 5px 10px;
-            cursor: pointer;
-          }
         }
       }
       .prompt_content{
