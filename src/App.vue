@@ -112,9 +112,7 @@ export default {
   name: 'App',
   metaInfo:{
     meta:[
-      { property: 'msapplication-TileImage', content: 'https://static.algorithmwatch.org/gfx/favicon-270x270.png' },
-      { property: 'og:image', content: 'https://algorithmwatch.github.io/automatically-generated-politicians/share.png' },
-      { property: 'og:title', content: "Picturing the Parliament: how AI portrays German political candidates"}
+      { property: 'msapplication-TileImage', content: 'https://static.algorithmwatch.org/gfx/favicon-270x270.png' }
     ],
     link: [
       { rel: 'stylesheet', href: 'https://algorithmwatch.org/en/wp-content/themes/aw2020/aw.min.css?72' },
