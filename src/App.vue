@@ -352,7 +352,7 @@ export default {
     font-variant: small-caps;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1em;
-    opacity: 2%;
+    opacity: 3%;
   }
 
   #app {
