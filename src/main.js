@@ -14,15 +14,15 @@ const router = new VueRouter({
     ? '/automatically-generated-politicians/'
     : '/',
 	routes:[
-		{path:"/", redirect: { path: "/en/Mona_Akrami/static" }, meta: { title: 'Automatically-generated politicians | AlgorithmWatch' }},
-		{path:"/:lang", redirect: { path: "/:lang/Mona_Akrami/static" }, meta: { title: 'Automatically-generated politicians | AlgorithmWatch' }},
-		{path:"/:lang/:mpid", redirect: { path: "/:lang/:mpid/static" }, meta: { title: 'Automatically-generated politicians | AlgorithmWatch' }},
-		{path:"/:lang/:mpid/:embed", meta: { title: 'Automatically-generated politicians | AlgorithmWatch' }}
+		{path:"/", redirect: { path: "/en/Mona_Akrami/static" }, meta: { title: 'Picturing the Parliament: how AI portrays German political candidates | AlgorithmWatch' }},
+		{path:"/:lang", redirect: { path: "/:lang/Mona_Akrami/static" }, meta: { title: 'Picturing the Parliament: how AI portrays German political candidates | AlgorithmWatch' }},
+		{path:"/:lang/:mpid", redirect: { path: "/:lang/:mpid/static" }, meta: { title: 'Picturing the Parliament: how AI portrays German political candidates | AlgorithmWatch' }},
+		{path:"/:lang/:mpid/:embed", meta: { title: 'Picturing the Parliament: how AI portrays German political candidates | AlgorithmWatch' }}
 	]
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title || 'Automatically-generated politicians | AlgorithmWatch'
+  document.title = to.meta.title || 'Picturing the Parliament: how AI portrays German political candidates | AlgorithmWatch'
   next()
 })
 

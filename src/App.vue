@@ -37,13 +37,9 @@
 
       <div id="presentation_container">
         <span id="presentation_text" v-if="lang=='en'">
-          {{selectedCandidateData["first name"]}} {{selectedCandidateData["last name"]}} is a candidate for the European Parliament in June, on the list of {{selectedCandidateData["party"]}}. We prompted three image generators about 
-          <span v-if="selectedCandidateData['pronoun']=='he/his'">his</span>
-          <span v-else>her</span>
-          tenure as an MEP if 
-          <span v-if="selectedCandidateData['pronoun']=='he/his'">he</span>
-          <span v-else>she</span>
-           is elected.
+          {{selectedCandidateData["first name"]}} {{selectedCandidateData["last name"]}} is a candidate for the European Parliament in June, on the list of {{selectedCandidateData["party"]}}. We asked three image generators to create images about 
+          <span v-if="selectedCandidateData['pronoun']=='he/his'">him</span>
+          <span v-else>her</span>.
         </span>
 
         <span id="presentation_text" v-if="lang=='de'">
@@ -116,7 +112,9 @@ export default {
   name: 'App',
   metaInfo:{
     meta:[
-      { property: 'msapplication-TileImage', content: 'https://static.algorithmwatch.org/gfx/favicon-270x270.png' }
+      { property: 'msapplication-TileImage', content: 'https://static.algorithmwatch.org/gfx/favicon-270x270.png' },
+      { property: 'og:image', content: 'https://algorithmwatch.github.io/automatically-generated-politicians/share.png' },
+      { property: 'og:title', content: "Picturing the Parliament: how AI portrays German political candidates"}
     ],
     link: [
       { rel: 'stylesheet', href: 'https://algorithmwatch.org/en/wp-content/themes/aw2020/aw.min.css?72' },
@@ -269,9 +267,9 @@ export default {
     },
     updateDocTitle(){
       if(this.lang == "en"){
-        document.title = "Automatically-generated politicians | AlgorithmWatch"
+        document.title = "Picturing the Parliament: how AI portrays German political candidates | AlgorithmWatch"
       }else{
-        document.title = "Automatisch generierte Politiker*innen | AlgorithmWatch"
+        document.title = "Bilder eines Parlaments: wie KI deutsche Kandidat*innen darstellt | AlgorithmWatch"
       }
     },
     imageUrlAlt(event){
@@ -331,10 +329,6 @@ export default {
     this.updateDocTitle()
 
     this.$router.push({ name: this.$route.name, params: params })
-
-    this.$route.meta.push(
-     { property: 'og:image', content: 'https://algorithmwatch.github.io/automatically-generated-politicians/share.png' },
-     { property: 'og:title', content: this.$route.params.lang == "en" ? "Picturing the Parliament: how AI portrays German political candidates" : "Bilder eines Parlaments: wie KI deutsche Kandidat*innen darstellt" })
 
   },
   updated() {
