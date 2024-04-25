@@ -17,7 +17,13 @@
       </div>
 
       <div id="chapo" v-if="embed!='embed'">
-        <span v-if="lang=='en'">We wanted to know how image generators interpreted the names of German candidates to the European Parliament. We prompted several services with the names. Here’s what we found.</span>
+        <div v-if="lang=='en'">
+          <p>We conducted a large-scale experiment to explore how three image generators depict politicians. </p>
+
+          <p>Our findings show that image generators do try to redress some of their biases but do not always succeed. Some do not even implement their own terms of services. Discriminating stereotypes remain, and these systems' opacity makes any systematic audit almost impossible.
+          </p>
+          <p><a href="https://algorithmwatch.org/en/ai-image-eu-election-midjourney-dalle/" target="_blank">Read more about our findings at AlgorithmWatch.</a></p>
+        </div>
         <span v-if="lang=='de'">Wir wollten wissen, wie Bildgeneratoren die Namen deutscher Kandidaten für das Europaparlament interpretieren. Wir haben mehrere Dienste mit den Namen angefragt. Hier ist, was wir gefunden haben.</span>
       </div>
 
@@ -36,13 +42,13 @@
       </div>
 
       <div id="presentation_container">
-        <span id="presentation_text" v-if="lang=='en'">
+        <p id="presentation_text" v-if="lang=='en'">
           {{selectedCandidateData["first name"]}} {{selectedCandidateData["last name"]}} is a candidate for the European Parliament in June, on the list of {{selectedCandidateData["party"]}}. We asked three image generators to create images about 
           <span v-if="selectedCandidateData['pronoun']=='he/his'">him</span>
           <span v-else>her</span>.
-        </span>
+        </p>
 
-        <span id="presentation_text" v-if="lang=='de'">
+        <p id="presentation_text" v-if="lang=='de'">
           {{selectedCandidateData["first name"]}} {{selectedCandidateData["last name"]}} kandidiert im Juni für das Europaparlament auf der Liste von {{selectedCandidateData["party"]}}. Wir haben drei Bildgeneratoren zu 
           <span v-if="selectedCandidateData['pronoun']=='he/his'">seiner</span>
           <span v-else>ihrer</span>
@@ -50,7 +56,7 @@
           <span v-if="selectedCandidateData['pronoun']=='he/his'">er</span>
           <span v-else>sie</span>
            gewählt wird.
-        </span>
+        </p>
       </div>
 
       
