@@ -4,6 +4,7 @@
     <headerComponent v-if="embed!='embed'"></headerComponent>
 
     <div id="main_content" v-if="selectedCandidateData">
+      <div v-show="isDraft" ref="draft" class="draft"></div>
 
       <div id="image_expand_container" v-if="expanded_image">
         <div id="image_expand_wrapper">
@@ -22,7 +23,7 @@
 
       <div id="candidate_selector">
         <div class="dropdown">
-          <input type="text" class="dropdown-input" v-model="searchString" @input="filterOptions" placeholder="Type to search" @focus="focusInput()">
+          <input type="text" class="dropdown-input" v-model="searchString" @input="filterOptions" placeholder="Type to search" @focus="focusInput()"><div class="dropdown-after" @click="focusInput()"></div>
           <div class="dropdown-menu" v-show="showDropdown">
             <div class="dropdown-menu-item" v-for="option,index in filtredCandidates" :key="index" @click="selectOption(option)">
               {{ option["first name"]}} {{ option["last name"]}}
@@ -152,6 +153,7 @@ export default {
       ? '/automatically-generated-politicians/'
       : '/',
       candidates:[],
+      isDraft: true,
       candidates_url:[],
       filtredCandidates:[],
       showDropdown: false,
@@ -341,6 +343,7 @@ export default {
   },
 
   mounted(){
+
     let params = this.$route.params
 
     if(this.lang != "de" && this.lang != "en"){
@@ -351,6 +354,9 @@ export default {
 
     this.$router.push({ name: this.$route.name, params: params })
 
+  },
+  updated() {
+    this.$refs.draft.textContent = Array(50).fill('draft - do not share').join(' ');
   }
 }
 </script>
@@ -358,6 +364,20 @@ export default {
 <style lang="scss">
 
   @import "https://algorithmwatch.org/en/wp-content/cache/min/1/en/wp-content/themes/aw2020/aw.min.css?ver=1709220387";
+
+  .draft {
+    background: rgb(0, 0, 0);
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    color: white;
+    font-size: 4em;
+    font-variant: small-caps;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1em;
+    opacity: 2%;
+  }
 
   #app {
     -webkit-font-smoothing: antialiased;
@@ -436,6 +456,8 @@ export default {
         .dropdown {
           position: relative;
           display: inline-block;
+        }
+        .dropdown-after{
 
           &:after{
             content: '';
