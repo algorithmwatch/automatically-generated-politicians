@@ -24,7 +24,13 @@
           </p>
           <p><a href="https://algorithmwatch.org/en/ai-image-eu-election-midjourney-dalle/" target="_blank">Read more about our findings at AlgorithmWatch.</a></p>
         </div>
-        <span v-if="lang=='de'">Wir wollten wissen, wie Bildgeneratoren die Namen deutscher Kandidaten für das Europaparlament interpretieren. Wir haben mehrere Dienste mit den Namen angefragt. Hier ist, was wir gefunden haben.</span>
+        <div v-if="lang=='de'">
+          <p>Bei einem großangelegten Experiment wollten wir herausfinden, wie drei Bildgeneratoren Politiker*innen darstellen. </p>
+
+          <p>Es hat sich gezeigt, dass Bildgeneratoren generell versuchen, Stereotypen zu vermeiden, allerdings mit unterschiedlichem Erfolg. Manche halten sich noch nicht einmal an ihre eigenen Nutzungsbedingungen. Die Generatoren verbreiten also weiterhin diskriminierende Stereotypen. Und niemand kann sagen, wie diese Systeme genau funktionieren. Das macht es nahezu unmöglich, solche Probleme zu beheben.
+          </p>
+          <p><a href="https://algorithmwatch.org/de/bildgeneratoren-openai-stability-ai-brechen-eigene-regeln-eu-wahl" target="_blank">Mehr über unsere Untersuchungsergebnisse.</a></p>
+        </div>
       </div>
 
       <div id="candidate_selector">
@@ -38,7 +44,7 @@
         </div>
 
         <span v-if="lang=='en'"> as seen by image generators</span>
-        <span v-if="lang=='de'"> wie von Bildgeneratoren gesehen</span>
+        <span v-if="lang=='de'"> aus der Sicht von Bildgeneratoren</span>
       </div>
 
       <div id="presentation_container">
@@ -49,13 +55,10 @@
         </p>
 
         <p id="presentation_text" v-if="lang=='de'">
-          {{selectedCandidateData["first name"]}} {{selectedCandidateData["last name"]}} kandidiert im Juni für das Europaparlament auf der Liste von {{selectedCandidateData["party"]}}. Wir haben drei Bildgeneratoren zu 
-          <span v-if="selectedCandidateData['pronoun']=='he/his'">seiner</span>
-          <span v-else>ihrer</span>
-          Amtszeit als Europaabgeordnete befragt, falls
-          <span v-if="selectedCandidateData['pronoun']=='he/his'">er</span>
-          <span v-else>sie</span>
-           gewählt wird.
+          {{selectedCandidateData["first name"]}} {{selectedCandidateData["last name"]}} kandidiert für {{selectedCandidateData["party"]}} für einen Sitz im Europäischen Parlament. Wir haben drei Generatoren Bilder mit 
+          <span v-if="selectedCandidateData['pronoun']=='he/his'">ihm</span>
+          <span v-else>ihr</span>
+          erstellen lassen.
         </p>
       </div>
 
@@ -65,7 +68,7 @@
         </a>
 
         <a v-if="lang=='de'" href="https://algorithmwatch.org/de/spenden/" class="donation_cta_container">
-          <span>Unterstützen Sie AlgorithmWatch mit einer Spende</span> 
+          <span>AlgorithmWatch mit einer Spende unterstützen</span> 
         </a>
 
       <div v-for="p,i in prompts_list" :key="i" class="prompt_content">
@@ -79,7 +82,7 @@
           </p> 
 
           <p class="prompt_name" v-if="lang=='de'">
-            "<b>{{selectedCandidateData["first name"]}} {{selectedCandidateData["last name"]}}</b> {{prompts[p]["de"]}}" entsprechend&nbsp;:
+            "<b>{{selectedCandidateData["first name"]}} {{selectedCandidateData["last name"]}}</b> {{prompts[p]["de"]}}" aus der Sicht von&nbsp;:
           </p> 
 
         </div>
@@ -273,7 +276,7 @@ export default {
       if(this.lang == "en"){
         document.title = "Picturing the Parliament: how AI portrays German political candidates | AlgorithmWatch"
       }else{
-        document.title = "Bilder eines Parlaments: wie KI deutsche Kandidat*innen darstellt | AlgorithmWatch"
+        document.title = "Bilder einer Wahl: Wie KI deutsche EU-Kandidat*innen darstellt | AlgorithmWatch"
       }
     },
     imageUrlAlt(event){
