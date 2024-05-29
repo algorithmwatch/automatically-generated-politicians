@@ -142,7 +142,7 @@ export default {
       ? '/automatically-generated-politicians/'
       : '/',
       candidates:[],
-      isDraft: true,
+      isDraft: false,
       candidates_url:[],
       filtredCandidates:[],
       showDropdown: false,

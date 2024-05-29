@@ -4,8 +4,8 @@
       <div id="logo">
         <a href="https://algorithmwatch.org/"><img src="@/assets/aw-logo.svg"/></a>
       </div>
-      <h2 v-if="lang=='en'">Picturing the Parliament: how AI portrays German political candidates</h2>
-      <h2 v-if="lang=='de'">Bilder einer Wahl: Wie KI deutsche EU-Kandidat*innen darstellt</h2>
+      <h2 class="main-title" v-if="lang=='en'">Picturing the Parliament: how AI portrays German political candidates</h2>
+      <h2 class="main-title" v-if="lang=='de'">Bilder einer Wahl: Wie KI deutsche EU-Kandidat*innen darstellt</h2>
       <div id="lang_box">
         <span @click="changeLang('en')" :class="(lang=='en'?'selected':'')">English</span>
         <span @click="changeLang('de')" :class="(lang=='de'?'selected':'')">German</span>
@@ -114,6 +114,12 @@ export default {
       }
     }
     
+  }
+
+  @media (max-width: 600px) {
+    .main-title {
+      font-size:.8em;
+    } 
   }
 
 
